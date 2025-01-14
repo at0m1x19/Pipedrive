@@ -1,0 +1,14 @@
+# dotenv
+.env
+
+# Virtual environments
+venv/
+
+# Pytest cache
+.pytest_cache/
+
+# Allure results
+allure-results/
+allure-report/
+
+.idea
