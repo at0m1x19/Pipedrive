@@ -28,8 +28,8 @@ def test_create_person_all_params(pd_client, created_person_ids, created_org, fa
 
     assert result["name"] == name, "Name should match"
 
-    assert result["org_id"][
-               "value"] == org_id, f"Org ID should match (expected {org_id}, got {result['org_id']['value']})"
+    assert result["org_id"]["value"] == org_id, \
+        f"Org ID should match (expected {org_id}, got {result['org_id']['value']})"
 
     assert result["label_ids"] == labels, f"Labels should match (expected {labels}, got {result['label_ids']})"
 
@@ -202,11 +202,11 @@ def test_create_person_existing_name(pd_client, created_person_ids, faker_instan
     assert result1["id"] != result2["id"], "IDs should be unique for each person"
 
 
-def test_create_person_missing_name(pd_client):
+def test_create_person_missing_name(pd_client, faker_instance):
     """Attempt to create a person with no name."""
     with pytest.raises(requests.exceptions.HTTPError):
         pd_client.create_person(
             name="",
-            phone="123-4567",
-            email="missing_name@example.com"
+            phone=faker_instance.phone_number(),
+            email=faker_instance.email()
         )
